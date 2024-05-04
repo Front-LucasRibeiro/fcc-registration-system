@@ -1,11 +1,14 @@
 <script setup lang="ts">
-  import Login from './pages/Login.vue';
-
-  
+  import Header from './components/Header.vue'
+  import Footer from './components/Footer.vue'
 </script>
 
 <template>
-  <Login />
+  <main>
+    <Header v-if="$route.name !== 'Login'" />
+    <router-view></router-view>
+    <Footer v-if="$route.name !== 'Login'" />
+  </main>
 </template>
 
 <style scoped></style>
