@@ -2,7 +2,7 @@ import axios from 'axios';
 import IClient from '../types/IClient';
 import ILogin from '../types/ILogin';
 
-const BASE_URL = 'https://my-json-server.typicode.com/Front-LucasRibeiro/fcc-registration-sytem';
+const BASE_URL = 'https://my-json-server.typicode.com/Front-LucasRibeiro/fcc-registration-system/';
 
 export default class ClientsApiService {
   async getClientsList(): Promise<ILogin[]> {

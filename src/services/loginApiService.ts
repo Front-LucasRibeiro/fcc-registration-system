@@ -1,7 +1,7 @@
 import axios from 'axios';
 import ILogin from '../types/ILogin';
 
-const BASE_URL = 'https://my-json-server.typicode.com/Front-LucasRibeiro/fcc-registration-sytem';
+const BASE_URL = 'https://my-json-server.typicode.com/Front-LucasRibeiro/fcc-registration-system';
 
 export default class LoginApiService {
   async getUserLogin(): Promise<ILogin[]> {
