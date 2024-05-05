@@ -1,13 +1,26 @@
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue';
-import ErrorLogin from '../components/Error.vue';
-
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import LoginApiService from '../services/LoginApiService.vue';
 
 const textChangePassword = ref('password');
+const fieldPassword = ref('');
+const fieldUser= ref('');
+const router = useRouter();
 
+const login = async  (e: Event) => {
+  e.preventDefault();
 
-const login = () => {
-  // enviar usuario e senha para o servico checkar
+  const loginService = new LoginApiService();
+  const loginData = await loginService.getUserLogin()
+
+  loginData.map(users => {
+    if(users.user === fieldUser.value && users.password === fieldPassword.value){
+      router.push('/clientes');
+    }else{
+      console.log('user não encontrado enviar dados para o componente error exibir mensagem')
+    }
+  })
 }
  
 const changeViewPassword = (e: Event) => {
@@ -20,10 +33,6 @@ const changeViewPassword = (e: Event) => {
   }
 }
 
-watchEffect(() => {
-  
-});
-
 </script>
 
 <template>
@@ -33,18 +42,17 @@ watchEffect(() => {
       <form class="login__form">
         <fieldset class="login__field">
           <label for="user">Usuário:</label>
-          <input type="text" id="user" name="user" />
+          <input type="text" id="user" name="user" v-model=fieldUser />
         </fieldset>
         <fieldset class="login__field">
           <label for="password">Senha:</label>
           <div class="login__field--password">
-            <input :type="textChangePassword" id="password" name="password" />
+            <input :type="textChangePassword" id="password" name="password" v-model=fieldPassword />
             <button class="login__field--btnShowPassword" :class="textChangePassword" title="Ver senha" @click="changeViewPassword"></button>
           </div>
         </fieldset>
 
         <button class="button" @click="login">Entrar</button>
-        <ErrorLogin />
       </form>
     </section>
   </main>
