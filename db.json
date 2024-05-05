@@ -9,7 +9,7 @@
       "password": "testUser"
     }
   ],
-  "v1/Cliente/Listar": [
+  "clients": [
     {
       "idClient": 1,
       "cpf": "401.592.928-40",
