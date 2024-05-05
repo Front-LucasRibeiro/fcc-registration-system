@@ -1,7 +1,8 @@
 export default interface IClient {
-  CPF: string;
+  idClient: number;
+  cpf: string;
   name: string;
-  RG: string;
+  rg: string;
   issueDate: Date;
   issuingAuthority: string;
   state: string;

@@ -1,16 +1,16 @@
 <script setup lang="ts">
   import Header from './components/Header.vue'
   import Footer from './components/Footer.vue'
-  import Error from './components/Error.vue'
+  import InfoModal from './components/InfoModal.vue'
 </script>
 
 <template>
+  <Header v-if="$route.name !== 'Login'" />
   <main>
-    <Header v-if="$route.name !== 'Login'" />
     <router-view></router-view>
-    <Footer v-if="$route.name !== 'Login'" />
-    <Error />
+    <InfoModal />
   </main>
+  <Footer v-if="$route.name !== 'Login'" />
 </template>
 
 <style scoped></style>

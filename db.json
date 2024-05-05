@@ -8,5 +8,29 @@
       "user": "testUser",
       "password": "testUser"
     }
+  ],
+  "/v1/Cliente/Listar": [
+    {
+      "idClient": 1,
+      "cpf": "401.592.928-40",
+      "name": "Lucas",
+      "rg": "48.207.459-0",
+      "issueDate": "2024-05-05",
+      "issuingAuthority": "SSP",
+      "state": "SP",
+      "birthDate": "2024-05-05",
+      "gender": "Masculino",
+      "maritalStatus": "Casado",
+      "endereco": {
+        "idAddress": 1,
+        "cep": "05596-000",
+        "street": "Avenida Marechal Fiuza de Castro",
+        "number": "836A",
+        "complement": "Casa 3",
+        "neighborhood": "Jardim Pinheiros",
+        "city": "São Paulo",
+        "state": "São Paulo"
+      }
+    }
   ]
 }

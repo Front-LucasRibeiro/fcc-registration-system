@@ -7,6 +7,9 @@ This template should help get you started developing with Vue 3 and TypeScript i
  - npm run dev: run project on localhost
  - npm run build: compile project for production
  - node version: >=20.9.0
+ - test login:
+ - user: admin, senha: admin 
+ - user: testUser, senha: testUser
 
 ## Recommended Setup
 

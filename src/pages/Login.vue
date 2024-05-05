@@ -1,22 +1,32 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import LoginApiService from '../services/LoginApiService.vue';
+import LoginApiService from '../services/loginApiService';
+import ClientsApiService from '../services/clientsApiService';
 
 const textChangePassword = ref('password');
 const fieldPassword = ref('');
 const fieldUser= ref('');
 const router = useRouter();
 
-const login = async  (e: Event) => {
+const login = async (e: Event) => {
   e.preventDefault();
 
   const loginService = new LoginApiService();
+  const clientsService = new ClientsApiService();
+
   const loginData = await loginService.getUserLogin()
+  const clientsData = await clientsService.getClientsList()
 
   loginData.map(users => {
     if(users.user === fieldUser.value && users.password === fieldPassword.value){
-      router.push('/clientes');
+      sessionStorage.setItem('fccUserLogged', true)
+
+      // guardar lista de clientes no state global 
+      console.log('xxx', clientsData)
+      console.log('encontrei')
+
+      // router.push('/clientes');
     }else{
       console.log('user não encontrado enviar dados para o componente error exibir mensagem')
     }
@@ -39,7 +49,7 @@ const changeViewPassword = (e: Event) => {
   <main>
     <section class="login">
       <h1 class="title">Login Registration System</h1>
-      <form class="login__form">
+      <form @submit.prevent="login" class="login__form">
         <fieldset class="login__field">
           <label for="user">Usuário:</label>
           <input type="text" id="user" name="user" v-model=fieldUser />
@@ -52,7 +62,7 @@ const changeViewPassword = (e: Event) => {
           </div>
         </fieldset>
 
-        <button class="button" @click="login">Entrar</button>
+        <button type="submit" class="button">Entrar</button>
       </form>
     </section>
   </main>
@@ -81,15 +91,17 @@ const changeViewPassword = (e: Event) => {
   .login__form {
     border: 1px solid #ccc;
     border-radius: 6px;
-    padding: 8px 22px;
+    padding: 22px;
     background-color: #ededed;
+    width: 100%;
+    max-width: 310px;
   }
 
   .login__field {
     position: relative;
     display: flex;
     flex-direction: column;
-    margin: 2rem 0;
+    margin: 0 0 2rem;
 
     &--password {
       position: relative;
@@ -114,10 +126,10 @@ const changeViewPassword = (e: Event) => {
     label {
       font-weight: 600;
       margin-bottom: 4px;
+      font-size: 0.9rem;
     }
 
     input {
-      min-width: 310px;
       border: 1px solid #ccc;
       background-color: #fefefe;
       outline: 0;
@@ -125,6 +137,7 @@ const changeViewPassword = (e: Event) => {
       border-radius: 6px;
       padding: 8px 14px;
       color: #111;
+      width: 100%;
     }
   }
 }

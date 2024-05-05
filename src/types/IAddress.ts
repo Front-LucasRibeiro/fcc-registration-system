@@ -1,5 +1,6 @@
 export default interface IAddress {
-  CEP: string;
+  idAddress: number;
+  cep: string;
   street: string;
   number: string;
   complement: string;
