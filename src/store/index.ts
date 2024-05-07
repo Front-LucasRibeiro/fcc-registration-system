@@ -1,27 +1,35 @@
-import IClient from "@/types/IClient";
 import { InjectionKey } from "vue";
-import { Store, createStore } from "vuex";
+import { clientModule, IStateClients } from "./modules/clients";
+import { IStateNotifications, notificationModule } from "./modules/notifications";
+import { Store, createStore, useStore } from "vuex";
 
-interface State {
-  clients: IClient[]
+export interface State {
+  clientsList: IStateClients
+  notificationData: IStateNotifications
 }
 
 export const key: InjectionKey<Store<State>> = Symbol()
 
 export const store = createStore<State>({
   state: {
-    clients: [
-      {
-        cpf: '401.592.928-40',
-        name: 'Lucas Lima Ribeiro Maranho',
-        RG: '48.207.459-0',
-        issueDate: '13/04/2005',
-        issuingAuthority: 'SSP',
-        state: 'SP',
-        birthDate: '21/05/1992',
-        gender: 'Masculino',
-        maritalStatus: 'Casado'
+    clientsList: {
+      clients: [],
+    },
+    notificationData: {
+      notification: {
+        showInfo: false,
+        message: '',
+        status: ''
       }
-    ]
+    }
+  },
+  modules: {
+    clientModule,
+    notificationModule
   }
 })
+
+
+export function sourceStore(): Store<State> {
+  return useStore(key)
+}

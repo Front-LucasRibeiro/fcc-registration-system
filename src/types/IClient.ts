@@ -1,3 +1,5 @@
+import IAddress from "./IAddress";
+
 export default interface IClient {
   idClient: number;
   cpf: string;
@@ -9,4 +11,5 @@ export default interface IClient {
   birthDate: Date;
   gender: string;
   maritalStatus: string;
+  address: IAddress;
 }

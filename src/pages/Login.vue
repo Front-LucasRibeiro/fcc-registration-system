@@ -1,38 +1,46 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import LoginApiService from '../services/loginApiService';
-import ClientsApiService from '../services/clientsApiService';
+import LoginApiService from '../services/LoginApiService';
+import { sourceStore } from '../store';
+import IInfo from '../types/IInfo';
+import { SEND_MESSAGE_ACTION } from '../store/type-actions';
 
 const textChangePassword = ref('password');
 const fieldPassword = ref('');
-const fieldUser= ref('');
+const fieldUser = ref('');
 const router = useRouter();
+const store = sourceStore();
 
-const login = async (e: Event) => {
-  e.preventDefault();
 
+const login = async () => {
   const loginService = new LoginApiService();
-  const clientsService = new ClientsApiService();
-
   const loginData = await loginService.getUserLogin()
-  const clientsData = await clientsService.getClientsList()
 
-  loginData.map(users => {
-    if(users.user === fieldUser.value && users.password === fieldPassword.value){
-      sessionStorage.setItem('fccUserLogged', true)
+  const user = loginData.find(user => user.user === fieldUser.value && user.password === fieldPassword.value);
 
-      // guardar lista de clientes no state global 
-      console.log('xxx', clientsData)
-      console.log('encontrei')
-
-      // router.push('/clientes');
-    }else{
-      console.log('user não encontrado enviar dados para o componente error exibir mensagem')
+  if(fieldUser.value === '' || fieldPassword.value === ''){
+    const message: IInfo = {
+      status: 'error',
+      message: 'Por favor, preencha todos os campos!',
+      showInfo: true
     }
-  })
+
+    store.dispatch(SEND_MESSAGE_ACTION, message)
+  } else if (user) {
+    sessionStorage.setItem('fccUserLogged', "true")
+    router.push('/clientes');
+  } else {
+    const message: IInfo = {
+      status: 'error',
+      message: 'Usuário não encontrado, por favor, verifique os dados informados e tente novamente!',
+      showInfo: true
+    }
+
+    store.dispatch(SEND_MESSAGE_ACTION, message)
+  }
 }
- 
+
 const changeViewPassword = (e: Event) => {
   e.preventDefault();
 
@@ -43,29 +51,29 @@ const changeViewPassword = (e: Event) => {
   }
 }
 
+
 </script>
 
 <template>
-  <main>
-    <section class="login">
-      <h1 class="title">Login Registration System</h1>
-      <form @submit.prevent="login" class="login__form">
-        <fieldset class="login__field">
-          <label for="user">Usuário:</label>
-          <input type="text" id="user" name="user" v-model=fieldUser />
-        </fieldset>
-        <fieldset class="login__field">
-          <label for="password">Senha:</label>
-          <div class="login__field--password">
-            <input :type="textChangePassword" id="password" name="password" v-model=fieldPassword />
-            <button class="login__field--btnShowPassword" :class="textChangePassword" title="Ver senha" @click="changeViewPassword"></button>
-          </div>
-        </fieldset>
+  <section class="login">
+    <h1 class="title">Login Registration System</h1>
+    <form @submit.prevent="login" class="login__form">
+      <fieldset class="login__field">
+        <label for="user">Usuário:</label>
+        <input type="text" id="user" name="user" v-model=fieldUser />
+      </fieldset>
+      <fieldset class="login__field">
+        <label for="password">Senha:</label>
+        <div class="login__field--password">
+          <input :type="textChangePassword" id="password" name="password" v-model=fieldPassword />
+          <button class="login__field--btnShowPassword" :class="textChangePassword" title="Ver senha"
+            @click="changeViewPassword"></button>
+        </div>
+      </fieldset>
 
-        <button type="submit" class="button">Entrar</button>
-      </form>
-    </section>
-  </main>
+      <button type="submit" class="button">Entrar</button>
+    </form>
+  </section>
 </template>
 
 <style scoped lang="scss">
@@ -118,7 +126,7 @@ const changeViewPassword = (e: Event) => {
       cursor: pointer;
       background-image: url(var.$iconHidePassword);
 
-      &.text{
+      &.text {
         background-image: url(var.$iconShowPassword);
       }
     }

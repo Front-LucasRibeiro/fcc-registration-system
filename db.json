@@ -21,7 +21,7 @@
       "birthDate": "2024-05-05",
       "gender": "Masculino",
       "maritalStatus": "Casado",
-      "endereco": {
+      "address": {
         "idAddress": 1,
         "cep": "05596-000",
         "street": "Avenida Marechal Fiuza de Castro",

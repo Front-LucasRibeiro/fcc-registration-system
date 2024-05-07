@@ -1,21 +1,24 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed} from 'vue';
+import { sourceStore } from '../store';
 
-const showModal = ref(false)
+const store = sourceStore()
+const notificationData = computed(() => store.state.notificationModule.notification);
 
 const closeModal = () => {
-  showModal.value = false;
+  notificationData.value.showInfo = false;
 }
+
 </script>
 
 <template>
-  <div class="infoModal" v-if="showModal" >
+  <div class="infoModal" v-if="notificationData?.showInfo" >
     <div class="infoModal__content">
       <span class="infoModal__close" @click="closeModal">&times;</span>
       <p class="infoModal__text">
-        Dados de login incorretos, por favor verifique os dados informados!
+        {{ notificationData.message }}
       </p>
-      <span class="infoModal__icon"></span>
+      <span class="infoModal__icon" :class="notificationData.status"></span>
     </div>
   </div>
 </template>

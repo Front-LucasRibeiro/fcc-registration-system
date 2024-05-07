@@ -3,6 +3,7 @@ import LoginVue from "./pages/Login.vue";
 import ClientsVue from "./pages/Clients.vue";
 import RegisterVue from './pages/Register.vue';
 import NotFoundVue from './pages/NotFound.vue';
+import EditVue from "./pages/Edit.vue";
 
 const routesList: RouteRecordRaw[] = [
   {
@@ -12,13 +13,24 @@ const routesList: RouteRecordRaw[] = [
   },
   {
     path: '/clientes',
-    name: 'Clients',
-    component: ClientsVue
-  },
-  {
-    path: '/cadastrar',
-    name: 'Register',
-    component: RegisterVue
+    children: [
+      {
+        path: '',
+        name: 'Clients',
+        component: ClientsVue
+      },
+      {
+        path: 'cadastrar',
+        name: 'Register',
+        component: RegisterVue
+      },
+      {
+        path: 'editar/:id',
+        name: 'Edit',
+        component: EditVue,
+        props: true
+      },
+    ]
   },
   {
     path: '/:catchAll(.*)',
