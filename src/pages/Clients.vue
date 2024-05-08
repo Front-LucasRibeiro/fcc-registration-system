@@ -1,11 +1,21 @@
 <script setup lang="ts">
-import { sourceStore } from '../store';
+import { useStore } from '../store';
 import { computed, onMounted } from 'vue';
 import { GET_CLIENTS_ACTION } from '../store/type-actions';
 import Filter from '../components/Filter.vue';
+import router from '../routes';
+import { DELETE_CLIENT_ACTION } from '../store/type-actions';
 
-const store = sourceStore()
+const store = useStore()
 const clientsDataList = computed(() => store.state.clientModule.clients);
+
+const editClient = (clienteId: number) => {
+  router.push(`/clientes/editar/${clienteId}`)
+}
+
+const deleteClient = (clienteId: number) => {
+  store.dispatch(DELETE_CLIENT_ACTION, clienteId)
+}
 
 onMounted(() => {
   store.dispatch(GET_CLIENTS_ACTION)
@@ -35,21 +45,19 @@ onMounted(() => {
           </tr>
         </thead>
         <tbody v-for="client in clientsDataList" :key="client.idClient">
-          <tr>
-            <td>{{ client.name }}</td>
+          <tr v-if="client?.exibeItem || !client.hasOwnProperty('exibeItem')">
+            <td>{{ client.nome }}</td>
             <td>{{ client.cpf }}</td>
             <td>{{ client.rg }}</td>
-            <td>{{ client.birthDate }}</td>
-            <td>{{ client.gender }}</td>
-            <td>{{ client.maritalStatus }}</td>
+            <td>{{ client.dataNascimento }}</td>
+            <td>{{ client.sexo }}</td>
+            <td>{{ client.estadoCivil }}</td>
             <td>
-              <div class="button">
-                <router-link to="/clientes/editar/1" class="button">
-                  Editar
-                </router-link>
-              </div>
+              <button class="button" @click="editClient(client.clienteId)">Editar</button>
             </td>
-            <td><button class="button">Deletar</button></td>
+            <td>
+              <button class="button" @click="deleteClient(client.clienteId)">Deletar</button>
+            </td>
           </tr>
         </tbody>
       </table>

@@ -1,7 +1,7 @@
 import { InjectionKey } from "vue";
 import { clientModule, IStateClients } from "./modules/clients";
 import { IStateNotifications, notificationModule } from "./modules/notifications";
-import { Store, createStore, useStore } from "vuex";
+import { Store, createStore, useStore as sourceStore } from "vuex";
 
 export interface State {
   clientsList: IStateClients
@@ -30,6 +30,6 @@ export const store = createStore<State>({
 })
 
 
-export function sourceStore(): Store<State> {
-  return useStore(key)
+export function useStore(): Store<State> {
+  return sourceStore(key)
 }

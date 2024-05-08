@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import LoginApiService from '../services/LoginApiService';
-import { sourceStore } from '../store';
+import { useStore } from '../store';
 import IInfo from '../types/IInfo';
 import { SEND_MESSAGE_ACTION } from '../store/type-actions';
 
@@ -10,7 +10,7 @@ const textChangePassword = ref('password');
 const fieldPassword = ref('');
 const fieldUser = ref('');
 const router = useRouter();
-const store = sourceStore();
+const store = useStore();
 
 
 const login = async () => {

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed} from 'vue';
-import { sourceStore } from '../store';
+import { useStore } from '../store';
 
-const store = sourceStore()
+const store = useStore()
 const notificationData = computed(() => store.state.notificationModule.notification);
 
 const closeModal = () => {

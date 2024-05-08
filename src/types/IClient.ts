@@ -1,15 +1,15 @@
 import IAddress from "./IAddress";
 
 export default interface IClient {
-  idClient: number;
+  clienteId: number;
   cpf: string;
-  name: string;
+  nome: string;
   rg: string;
-  issueDate: Date;
-  issuingAuthority: string;
-  state: string;
-  birthDate: Date;
-  gender: string;
-  maritalStatus: string;
-  address: IAddress;
+  dataExpedicao: Date;
+  orgaoExpedicao: string;
+  uf: string;
+  dataNascimento: Date;
+  sexo: string;
+  estadoCivil: string;
+  endereco: IAddress;
 }

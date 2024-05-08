@@ -1,10 +1,10 @@
 export default interface IAddress {
-  idAddress: number;
+  enderecoId: number;
   cep: string;
-  street: string;
-  number: string;
-  complement: string;
-  neighborhood: string;
-  city: string;
-  state: string;
+  logradouro: string;
+  numero: string;
+  complemento: string;
+  bairro: string;
+  cidade: string;
+  uf: string;
 }

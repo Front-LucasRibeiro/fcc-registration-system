@@ -3,5 +3,5 @@ import FormClient from '../components/FormClient.vue';
 </script>
 
 <template>
-  <FormClient />
+  <FormClient type-save="created"/>
 </template>

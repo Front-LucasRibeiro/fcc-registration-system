@@ -1,7 +1,7 @@
 import axios from 'axios';
 import ILogin from '../types/ILogin';
 
-const BASE_URL = 'https://my-json-server.typicode.com/Front-LucasRibeiro/fcc-registration-system';
+const BASE_URL = "https://my-json-server.typicode.com/Front-LucasRibeiro/fcc-registration-system";
 
 export default class LoginApiService {
   async getUserLogin(): Promise<ILogin[]> {
@@ -13,7 +13,6 @@ export default class LoginApiService {
         throw new Error(`Error fetching user login: ${response.statusText}`);
       }
     } catch (error) {
-      console.error('Error fetching data:', error);
       throw error;
     }
   }
