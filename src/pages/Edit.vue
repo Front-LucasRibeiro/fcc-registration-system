@@ -5,10 +5,11 @@ import { GET_CLIENTBYID_ACTION } from '../store/type-actions';
 import { useRoute } from 'vue-router';
 import { useStore } from '../store';
 
+
 const route = useRoute()
+const store = useStore()
 const clientId = computed(() => route.params.id);
 const client = computed(() => store.state.clientModule.clientToEdit);
-const store = useStore()
 
 const getDataClientById = () => {
   store.dispatch(GET_CLIENTBYID_ACTION, clientId.value)

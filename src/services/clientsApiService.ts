@@ -17,7 +17,7 @@ export default class ClientsApiService {
     }
   }
 
-  async createClient(client: IClient): Promise<any> {
+  async createClient(client: IClient): Promise<IClient> {
     try {
       const response = await axios.post<IClient>(`${BASE_URL}/v1/Cliente/Adicionar`, client);
       const message: IInfo = {
@@ -40,7 +40,7 @@ export default class ClientsApiService {
     }
   }
 
-  async getClientById(idClient: number): Promise<any> {
+  async getClientById(idClient: number): Promise<IClient> {
     try {
       const response = await axios.get<IClient>(`${BASE_URL}/v1/Cliente/ListarPorId/${idClient}`);
       return response.data;
@@ -49,7 +49,7 @@ export default class ClientsApiService {
     }
   }
 
-  async changeDataClient(client: IClient): Promise<any> {
+  async changeDataClient(client: IClient): Promise<IClient> {
     try {
       const response = await axios.put<IClient>(`${BASE_URL}/v1/Cliente/Alterar`, client);
 
@@ -74,17 +74,15 @@ export default class ClientsApiService {
     }
   }
 
-  async deleteClient(idClient: number): Promise<any> {
+  async deleteClient(idClient: number) {
     try {
-      const response = await axios.delete<IClient>(`${BASE_URL}/v1/Cliente/Excluir/${idClient}`);
+      await axios.delete<IClient>(`${BASE_URL}/v1/Cliente/Excluir/${idClient}`);
       const message: IInfo = {
         status: 'success',
         message: 'Cliente removido com sucesso!',
         showInfo: true
       }
       store.dispatch(SEND_MESSAGE_ACTION, message)
-
-      return response.data;
     } catch (error) {
       const message: IInfo = {
         status: 'error',

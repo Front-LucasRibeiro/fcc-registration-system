@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useStore } from '../store';
-import { computed, onMounted } from 'vue';
+import { computed, onMounted} from 'vue';
 import { GET_CLIENTS_ACTION } from '../store/type-actions';
 import Filter from '../components/Filter.vue';
 import router from '../routes';
@@ -113,7 +113,7 @@ onMounted(() => {
       padding: 12px;
       font-size: 0.95rem;
 
-      a{
+      a {
         text-decoration: none;
         display: flex;
         align-items: center;

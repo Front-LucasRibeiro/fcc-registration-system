@@ -20,11 +20,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "esModuleInterop": true,
-  "baseUrl": "./src",
-  "paths": {
-    "vue-router": ["node_modules/vue-router/dist/vue-router.esm.js"]
-  },
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

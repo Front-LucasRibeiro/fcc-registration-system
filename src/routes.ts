@@ -5,6 +5,19 @@ import RegisterVue from './pages/Register.vue';
 import NotFoundVue from './pages/NotFound.vue';
 import EditVue from "./pages/Edit.vue";
 
+const isLoggedIn = () => {
+  const isLogged = sessionStorage.getItem('fccUserLogged');
+  return isLogged === 'true';
+};
+
+const requireAuth: RouteRecordRaw['beforeEnter'] = (to, _from, next) => {
+  if (to.name !== 'Login' && !isLoggedIn()) {
+    next({ name: 'Login' });
+  } else {
+    next(); 
+  }
+};
+
 const routesList: RouteRecordRaw[] = [
   {
     path: '/',
@@ -17,18 +30,21 @@ const routesList: RouteRecordRaw[] = [
       {
         path: '',
         name: 'Clients',
-        component: ClientsVue
+        component: ClientsVue,
+        beforeEnter: requireAuth
       },
       {
         path: 'cadastrar',
         name: 'Register',
-        component: RegisterVue
+        component: RegisterVue,
+        beforeEnter: requireAuth
       },
       {
         path: 'editar/:id',
         name: 'Edit',
         component: EditVue,
-        props: true
+        props: true,
+        beforeEnter: requireAuth
       },
     ]
   },
@@ -37,7 +53,8 @@ const routesList: RouteRecordRaw[] = [
     name: 'NotFound',
     component: NotFoundVue
   }
-]
+];
+
 
 const router = createRouter({
   history: createWebHistory(),

@@ -36,11 +36,10 @@ export const clientModule: Module<IStateClients, State> = {
         console.error('Error getting clients:', error);        
       }
     },
-    async [ADD_CLIENT_ACTION]({ commit }: ActionContext<IStateClients, State>, client: IClient) {
+    async [ADD_CLIENT_ACTION]({}: ActionContext<IStateClients, State>, client: IClient) {
       try {
         const clientsService = new ClientsApiService();
-        const newClient = await clientsService.createClient(client);
-        commit(NEW_CLIENT_MUTATION, newClient);
+        await clientsService.createClient(client);
       } catch (error) {
         console.error('Error adding client:', error);
         throw error;
@@ -59,11 +58,10 @@ export const clientModule: Module<IStateClients, State> = {
         throw error;
       }
     },
-    async [SAVE_EDITION_ACTION]({ commit }: ActionContext<IStateClients, State>, client: IClient) {
+    async [SAVE_EDITION_ACTION]({}: ActionContext<IStateClients, State>, client: IClient) {
       try {
         const clientsService = new ClientsApiService();
-        const dataClient = await clientsService.changeDataClient(client);
-        commit(SET_CLIENTS_MUTATION, dataClient);
+        await clientsService.changeDataClient(client);
       } catch (error) {
         console.error('Error save edition client:', error);
         throw error;
